@@ -6,4 +6,4 @@ Fitting a linear regression model means finding the best line that fits the trai
     model = LinearRegression()
     model.fit(x_values, y_values)
 ### Predicting new values 
-    predicted _y_values = model.predict(unlabeled_x_values)
+    predicted_y_values = model.predict(unlabeled_x_values)
