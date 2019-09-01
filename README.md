@@ -1,5 +1,4 @@
 # Machine Learning
-To review the concepts of machine learning 
 
 ## Types of Machine Learning
 1. Supervised Machine Learning: The algorithms of this type of machine learning learn from labeled data and, then, try to predict the labels (values) of new unlabeled data. Supervised learning is divided into two types: classification (for categorical outcomes) and regression (for numeric values).
