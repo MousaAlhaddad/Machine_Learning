@@ -14,6 +14,13 @@ Fitting a linear regression model means finding the best line that fits the trai
     X_poly = poly_feat.fit_transform(X) # X should be a numpy array of shape [n_samples, n_features] 
     ## Reshape the data using X.reshape(-1,1) or ,alternatively, np.array([[x] for x in X]) if needed
     poly_model = LinearRegression().fit(X_poly, y)
+### Regularizing the model 
+    ## Fitting a linear regression model while also using L1 regularization to control for model complexity
+    from sklearn.linear_model import Lasso
+    lasso_reg = Lasso()
+    lasso_reg.fit(X,y)
+    print(lasso_reg.coef_)
+
 
 ## Warnings
 1. Linear regression produces a straight line model from the training data. Transform your training data, add more features, or use another kind of model if the relationship is not linear. 
