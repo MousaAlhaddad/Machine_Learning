@@ -18,3 +18,4 @@ Fitting a linear regression model means finding the best line that fits the trai
 ## Warnings
 1. Linear regression produces a straight line model from the training data. Transform your training data, add more features, or use another kind of model if the relationship is not linear. 
 2. Linear regression is sensitive to outliers.
+3. A complex model might have a larger error than a simple one.
