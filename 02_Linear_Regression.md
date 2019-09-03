@@ -1,5 +1,6 @@
 # Linear Regression
 Fitting a linear regression model means finding the best line that fits the training data, a line that minimize either the mean absolute error or the mean squared error.
+
 ## Coding 
 ### Fitting the model 
     from sklearn.linear_model import LinearRegression
@@ -29,12 +30,7 @@ Fitting a linear regression model means finding the best line that fits the trai
     from sklearn.preprocessing import StandardScaler
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-
-
-
-
-
-
+    
 ## Warnings
 1. Linear regression produces a straight line model from the training data. Transform your training data, add more features, or use another kind of model if the relationship is not linear. 
 2. Linear regression is sensitive to outliers.
