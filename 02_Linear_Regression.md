@@ -25,6 +25,13 @@ Fitting a linear regression model means finding the best line that fits the trai
     df["height_standard"] = (df["height"] - df["height"].mean()) / df["height"].std()
     ## Normalizing
     df["height_normal"] = (df["height"] - df["height"].min()) / (df["height"].max() - df['height'].min())
+    ## Alternatively 
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
+
+
 
 
 
