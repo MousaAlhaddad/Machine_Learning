@@ -20,9 +20,16 @@ Fitting a linear regression model means finding the best line that fits the trai
     lasso_reg = Lasso()
     lasso_reg.fit(X,y)
     print(lasso_reg.coef_)
+### Scaling features
+    ## Standardizing 
+    df["height_standard"] = (df["height"] - df["height"].mean()) / df["height"].std()
+    ## Normalizing
+    df["height_normal"] = (df["height"] - df["height"].min()) / (df["height"].max() - df['height'].min())
+
 
 
 ## Warnings
 1. Linear regression produces a straight line model from the training data. Transform your training data, add more features, or use another kind of model if the relationship is not linear. 
 2. Linear regression is sensitive to outliers.
 3. A complex model might have a larger error than a simple one.
+4. Feature scaling is important when using regularization. It is also necessary with distance based techniques such as Support Vector Machines and k-nearest neighbors.
