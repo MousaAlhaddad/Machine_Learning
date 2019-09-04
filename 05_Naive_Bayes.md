@@ -1,4 +1,5 @@
 # Naive Bayes 
+Spam detection is one of the major applications of the Naive Bayes algorithm.
 
 ## Coding 
 ### Calculating probabilities through theorem
