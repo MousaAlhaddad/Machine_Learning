@@ -31,6 +31,8 @@ Spam detection is one of the major applications of the Naive Bayes algorithm.
 	testing_data = count_vector.transform(X_test)
 	count_vector.get_feature_names()
 ### Fitting the model 
-
+	from sklearn.naive_bayes import MultinomialNB
+	naive_bayes = MultinomialNB()
+	naive_bayes.fit(training_data,y_train)
 ## Warnings 
 1. The multinomial Naive Bayes algorithm is suitable for classification with discrete features (such as word counts for text classification). It takes in integer word counts as its input. On the other hand, Gaussian Naive Bayes is better suited for continuous data as it assumes that the input data has a Gaussian (normal) distribution.
