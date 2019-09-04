@@ -1,5 +1,8 @@
 # Model Evaluation
 ## Coding
+### Splitting for training and testing
+    from sklearn.cross_validation import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.25)
 ### Calculating accuracy 
     # 1
     from sklearn.metrics import accuracy_score
