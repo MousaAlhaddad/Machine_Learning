@@ -9,10 +9,10 @@
     accuracy_score(y,y_pred)
     # 2
     sum(y==y_pred)/len(y)
-### Calculating precision, recall and f1_score
-    Precision = True Positives/(True Positives + False Positives)
-    Recall (sensitivity) = True Positives/(True Positives + False Negatives)
-    F1 score is the weighted average of the precision and recall scores. 
+### Calculating precision, recall and F1 score
+    # Precision = True Positives/(True Positives + False Positives)
+    # Recall (sensitivity) = True Positives/(True Positives + False Negatives)
+    # F1 score is the weighted average of the precision and recall scores. 
     from sklearn.metrics import precision_score, recall_score, f1_score
     precision_score(y_test,predictions)
     recall_score(y_test,predictions)
