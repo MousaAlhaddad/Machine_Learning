@@ -21,5 +21,7 @@
     precision_score(y_test,predictions)
     recall_score(y_test,predictions)
     f1_score(y_test,predictions)
+### Calculating R2 score, mean squared error, and mean absolute error
+    from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 ## Warnings
 1. For classification problems that are skewed in their distributions, accuracy by itself is not a very good metric.
