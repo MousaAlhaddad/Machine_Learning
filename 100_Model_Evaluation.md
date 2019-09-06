@@ -3,6 +3,9 @@
 ### Splitting for training and testing
     from sklearn.cross_validation import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.25)
+### Splitting for K-Fold cross calidation
+    from sklearn.model_selection import KFold
+    kf = KFold(data_size,test_size,shuffle=True)
 ### Calculating accuracy 
     # 1
     from sklearn.metrics import accuracy_score
@@ -28,5 +31,19 @@
     # MSE = np.mean((actual-preds)**2)
     # MAE = np.mean(abs(actual-preds))
     from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+### Drawing learning curves 
+    train_sizes, train_scores, test_scores = learning_curve(
+           estimator, X, y, cv=None, n_jobs=1, train_sizes=np.linspace(.1, 1.0, num_trainings))
+### Searching for the best hyperparameters 
+    from sklearn.model_selection import GridSearchCV
+    parameters = {'kernel':['poly', 'rbf'],'C':[0.1, 1, 10]}
+    from sklearn.metrics import make_scorer
+    from sklearn.metrics import f1_score
+    scorer = make_scorer(f1_score)
+    grid_obj = GridSearchCV(clf, parameters, scoring=scorer)
+    grid_fit = grid_obj.fit(X, y)
+    best_clf = grid_fit.best_estimator_
+
 ## Warnings
 1. For classification problems that are skewed in their distributions, accuracy by itself is not a very good metric.
+2. Never use testing data for training. Instead, add a cross validation set. 
