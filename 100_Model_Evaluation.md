@@ -11,7 +11,11 @@
     sum(y==y_pred)/len(y)
 ### Calculating precision, recall and F1 score
     # Precision = True Positives/(True Positives + False Positives)
+                = np.sum((preds == 1)&(actual == 1))/
+                    (np.sum((preds == 1)&(actual == 1))+np.sum((preds == 1)&(actual == 0)))
     # Recall (sensitivity) = True Positives/(True Positives + False Negatives)
+                = np.sum((preds == 1)&(actual == 1))/
+                   (np.sum((preds == 1)&(actual == 1))+np.sum((preds == 0)&(actual == 1)))
     # F1 score is the weighted average of the precision and recall scores (2*Precision*Recall/(Precision+Recall))
     from sklearn.metrics import precision_score, recall_score, f1_score
     precision_score(y_test,predictions)
