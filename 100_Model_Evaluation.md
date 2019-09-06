@@ -22,6 +22,11 @@
     recall_score(y_test,predictions)
     f1_score(y_test,predictions)
 ### Calculating R2 score, mean squared error, and mean absolute error
+    # sse = np.sum((actual-preds)**2)
+    # sst = np.sum((actual-np.mean(actual))**2)
+    # R2 score = 1 - sse/sst
+    # MSE = np.mean((actual-preds)**2)
+    # MAE = np.mean(abs(actual-preds))
     from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 ## Warnings
 1. For classification problems that are skewed in their distributions, accuracy by itself is not a very good metric.
