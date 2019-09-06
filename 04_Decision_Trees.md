@@ -13,6 +13,7 @@
     print(Entropy([4,10]))
 ### Fitting the model
     from sklearn.tree import DecisionTreeClassifier
+    # or from sklearn.tree import DecisionTreeRegressor 
     model = DecisionTreeClassifier() # Hyperparameters: max_depth, min_samples_leaf and min_samples_split
     model.fit(x_values, y_values)
    
