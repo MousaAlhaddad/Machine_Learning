@@ -37,6 +37,7 @@
 ### Searching for the best hyperparameters 
     from sklearn.model_selection import GridSearchCV
     parameters = {'kernel':['poly', 'rbf'],'C':[0.1, 1, 10]}
+    parameters = {'max_depth':[2,4,6,8,10],'min_samples_leaf':[2,4,6,8,10], 'min_samples_split':[2,4,6,8,10]}
     from sklearn.metrics import make_scorer
     from sklearn.metrics import f1_score
     scorer = make_scorer(f1_score)
