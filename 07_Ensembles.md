@@ -12,6 +12,8 @@ By combining algorithms, we can often build models that perform better by minimi
 	from sklearn.ensemble import BaggingClassifier, RandomForestClassifier
 	BaggingModel = BaggingClassifier(n_estimators=200)
 	RandomForsetModel = RandomForestClassifier(n_estimators=200)
+### Fitting regressor models
+	from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor
 ## Warnings 
 1. The default for most ensemble methods is a decision tree in sklearn.
 2. Linear models have low variance, but high bias. An example of an algorithm that tends to have high variance and low bias is a decision tree.
