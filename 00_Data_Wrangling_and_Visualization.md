@@ -11,6 +11,7 @@
 	df.describe()
 	df.hist()
 	sns.pairplot(df, hue="Column_Name")
+### Building a correlation matrix
 	sns.heatmap(df.corr(), annot=True, cmap="YlGnBu")
 ### Getting the columns with no missing values 
 	set(df.columns[~df.isnull().any()])
