@@ -4,7 +4,7 @@ Fitting a linear regression model means finding the best line that fits the trai
 ## Coding 
 ### Fitting the model 
     from sklearn.linear_model import LinearRegression
-    model = LinearRegression()
+    model = LinearRegression() # normalize = True
     model.fit(x_values, y_values)
 ### Predicting new values 
     predicted_y_values = model.predict(unlabeled_x_values)
