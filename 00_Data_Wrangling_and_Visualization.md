@@ -1,10 +1,13 @@
 # Data Wrangling and Visualization
+
+
 ## Gathering Data
 ### Importing Libraries
 	import numpy as np
 	import pandas as pd
 	import matplotlib.pyplot as plt
 	import seaborn as sns
+	
 	
 ## Assessing Data
 	df.head()
@@ -16,15 +19,22 @@
 ### Getting the columns with no missing values 
 	set(df.columns[~df.isnull().any()])
 	
+	
 ## Cleaning Data 
-### Dropping a column 
-	df.drop('Column_Name', axis = 1)
-### Substituting each value in a Series with another value
-	s.map({"Old_Value_1":New_Value_1,"Old_Value_1":New_Value_2})
 ### Creating a new column containing the numbers of missing values of each row  
 	df.isnull().sum(axis=1)
+### Droping any row with a missing value
+	df.dropna()
+### Droping only the rows with all missing values
+	df.dropna(axis=0, how='all')
+### Droping only the rows with missing values in specific columns 
+	df.dropna(subset=['Column_Name1', 'Colum_Name2'], how='any') 
+### Dropping a column 
+	df.drop('Column_Name', axis = 1)
 ### Filling null values by the mean of each column
 	df.apply(lambda col: col.fillna(col.mean()), axis=0)
+### Substituting each value in a Series with another value
+	s.map({"Old_Value_1":New_Value_1,"Old_Value_1":New_Value_2})
 
 	
 ## Processing Data 
@@ -42,6 +52,8 @@
                                                     y, 
                                                     test_size = 0.2, 
                                                     random_state = 0)
+						    
+						    
 ## Visualizing Data 
 ### Coloring a pandas DataFrame column depending on its values
 	df = pd.DataFrame({'Example':[0.5,0.6,0.7,-0.7,-0.2,0.1]})
