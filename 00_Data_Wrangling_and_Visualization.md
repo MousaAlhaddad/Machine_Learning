@@ -7,6 +7,9 @@
 	import pandas as pd
 	import matplotlib.pyplot as plt
 	import seaborn as sns
+### Showing the python version
+	from platform import python_version
+	print(python_version())
 	
 	
 ## Assessing Data
@@ -46,6 +49,14 @@
 	 scaler.fit_transform(df[Numerical_Features_List])
 ### Creating dummy variables
 	 pd.get_dummies(df)
+### Encoding labels 
+	from sklearn.preprocessing import LabelEncoder
+	le = LabelEncoder()
+	Column = le.fit_transform(Raw_Column)
+	# Print one hot
+	print(Column)
+	# Reverse it with
+	print(le.inverse_transform(Column))
 ### Splitting for training and testing
 	 from sklearn.cross_validation import train_test_split
 	 X_train, X_test, y_train, y_test = train_test_split(X, 
