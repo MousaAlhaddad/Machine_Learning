@@ -20,10 +20,11 @@
                 = np.sum((preds == 1)&(actual == 1))/
                    (np.sum((preds == 1)&(actual == 1))+np.sum((preds == 0)&(actual == 1)))
     # F1 score is the weighted average of the precision and recall scores (2*Precision*Recall/(Precision+Recall))
-    from sklearn.metrics import precision_score, recall_score, f1_score
+    from sklearn.metrics import precision_score, recall_score, f1_score, fbeta_score
     precision_score(y_test,predictions)
     recall_score(y_test,predictions)
     f1_score(y_test,predictions)
+    fbeta_score(y_test,predictions,beta=1)
 ### Calculating R2 score, mean squared error, and mean absolute error
     # sse = np.sum((actual-preds)**2)
     # sst = np.sum((actual-np.mean(actual))**2)
@@ -44,6 +45,15 @@
     grid_obj = GridSearchCV(clf, parameters, scoring=scorer)
     grid_fit = grid_obj.fit(X, y)
     best_clf = grid_fit.best_estimator_
+ 
+### Selecting the best features 
+    from sklearn.feature_selection import SelectKBest, f_classif
+    from sklearn.base import clone
+    kbest = SelectKBest(f_classif, k=5)
+    X_train_kbest = kbest.fit_transform(X_train, y_train)
+    X_test_kbest = kbest.transform(X_test)
+    clf_kbest = (clone(clf)).fit(X_train_kbest, y_train)
+    kbest_predictions = clf_kbest.predict(X_test_kbest)
 
 ## Warnings
 1. For classification problems that are skewed in their distributions, accuracy by itself is not a very good metric.
