@@ -37,7 +37,10 @@
 ### Filling null values by the mean of each column
 	df.apply(lambda col: col.fillna(col.mean()), axis=0)
 ### Substituting each value in a Series with another value
-	s.map({"Old_Value_1":New_Value_1,"Old_Value_1":New_Value_2})
+	# 1
+	s.map({Old_Value_1:New_Value_1,Old_Value_1:New_Value_2}) 
+	# 2
+	s.apply(lambda x: New_Value_1 if x == Old_Value_1 else New_Value_2)
 
 	
 ## Processing Data 
