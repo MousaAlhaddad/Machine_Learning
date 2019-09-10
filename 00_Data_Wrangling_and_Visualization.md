@@ -42,6 +42,9 @@
 	# 2
 	s.apply(lambda x: New_Value_1 if x == Old_Value_1 else New_Value_2)
 
+## Analysing Data
+### Calculating the dot product of two arrays
+	np.dot(array1,array2)
 	
 ## Processing Data 
 ### Applying a logarithmic transformation on highly-skewed feature distributions
@@ -72,4 +75,15 @@
 ### Coloring a pandas DataFrame column depending on its values
 	df = pd.DataFrame({'Example':[0.5,0.6,0.7,-0.7,-0.2,0.1]})
 	df.style.bar(subset=['Example'], align='mid', color=['#d65f5f', '#5fba7d'])
-
+### Drawing lines
+	def drawLine(m, b, color='g--'):
+    		#plt.xlim(-0.05,1.05)
+    		#plt.ylim(-0.05,1.05)
+    		x = np.arange(-10, 10, 0.1)
+    		plt.plot(x, m*x+b, color)
+### Plotting two sets of points 
+	def plot_points(X, y):
+    		admitted = X[np.argwhere(y==1)]
+    		rejected = X[np.argwhere(y==0)]
+    		plt.scatter([s[0][0] for s in rejected], [s[0][1] for s in rejected], s = 25, color = 'blue', edgecolor = 'k')
+    		plt.scatter([s[0][0] for s in admitted], [s[0][1] for s in admitted], s = 25, color = 'red', edgecolor = 'k')
