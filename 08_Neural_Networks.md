@@ -14,7 +14,7 @@
 	# Adding a softmax activation layer
 	model.add(Activation('softmax')) # others: relu
 	# Adding a fully connected output layer
-	model.add(Dense(1))
+	model.add(Dense(2))
 	# Adding a sigmoid activation layer
 	model.add(Activation('sigmoid'))
 	# Compiling the model  
@@ -22,12 +22,12 @@
 	model.compile(loss="categorical_crossentropy", optimizer="adam", metrics = ["accuracy"]) 
 		## loss= binary_crossentropy,  mean_squared_error
 		## optimizer: 'rmsprop' (RMS stands for Root Mean Squared Error), 
-			"adam" (Adaptive Moment Estimation), or SGD() (Stochastic Gradient Descent)
+		##	"adam" (Adaptive Moment Estimation), or SGD() (Stochastic Gradient Descent)
 	# Showing results  
 	model.summary()
 	
 ### Fitting the model 
-	model.fit(X, y, nb_epoch=1000,  batch_size=100, verbose=0)
+	model.fit(X, y, epochs=1000,  batch_size=100, verbose=0)
 	
 ### Evaluating the model 
 	model.evaluate(features, targets)
