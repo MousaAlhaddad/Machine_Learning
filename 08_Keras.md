@@ -1,5 +1,4 @@
-# Neural Networks
-
+# Keras
 ### Arranging the data  
 	import keras
 	features = np.array(features))
