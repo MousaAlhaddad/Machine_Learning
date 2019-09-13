@@ -8,6 +8,9 @@
 - To train your neural network on PyTroch, you need to define a model, a loss criterion, and an optimizer.
 - Neural networks have a tendency to perform too well on the training data and aren't able to generalize to data that hasn't been seen before. The aim is to get the lowest validation loss possible, not the lowest training loss. In practice, you might need to save the model frequently as you are training then later choose the model with the lowest validation loss. 
 - The most common method to reduce overfitting (outside of early-stopping) is dropout. Make sure to turn off dropout during validation, testing, and whenever we're using the network to make predictions.
+- A common strategy for training neural networks is to introduce randomness in the input data itself. For example, you can randomly rotate, mirror, scale, and/or crop your images during training. This will help your network generalize as it's seeing the same images but in different locations, with different sizes, in different orientations, etc.
+- Most of the pretrained models require the input to be 224x224 images. Also, we'll need to match the normalization used when the models were trained.
+- PyTorch uses CUDA to efficiently compute the forward and backwards passes on the GPU.
 
 
 ## Coding 
@@ -50,16 +53,28 @@
     torch.Tensor.numpy(tensor)
   
 ### Torchvision
-        # Import datasets and transfoms 
-        from torchvision import datasets, transforms
+        # Import datasets, transfoms and models
+        from torchvision import datasets, transforms, models
         
         # Define a transform to normalize the data
         transform = transforms.Compose([transforms.ToTensor(),
                               transforms.Normalize((0.5,), (0.5,)),
                               ])
+          
+        # Define a transform for training and introduce randomness
+        train_transforms = transforms.Compose([transforms.RandomRotation(30),
+                                       transforms.RandomResizedCrop(224),
+                                       transforms.RandomHorizontalFlip(),
+                                       transforms.ToTensor()])           
+                                      
+        # Define a transform for testing without introducing randomness                               
+        test_transforms = transforms.Compose([transforms.Resize(255),
+                                      transforms.CenterCrop(224),
+                                      transforms.ToTensor()])
                               
         # Download and load the training MNIST data data
-         '''
+            '''
+            dataset = datasets.ImageFolder('path/to/data', transform=transform)
             root (string) - Root directory of dataset where MNIST/processed/training.pt and
                 MNIST/processed/test.pt exist.
             train (bool, optional) - If True, creates dataset from training.pt, otherwise 
@@ -99,7 +114,19 @@
         
         # Flatten the images of a loader 
         images = images.view(images.shape[0],-1)
-   # Neural Networks
+        
+        # Load a pre-trained model
+            '''
+        In this model, Eeach color channel was normalized separately, the means are
+        [0.485, 0.456, 0.406] and the standard deviations are [0.229, 0.224, 0.225].
+            '''
+        pretrained_model = models.densenet121(pretrained=True)
+        # Freeze parameters 
+        for param in model.parameters():
+            param.requires_grad = False
+        pretrained_model.classifier = model
+
+### Neural Networks
         # Import the nn module 
         from torch import nn
         
@@ -223,8 +250,10 @@
             '''
             torch.optim.Optimizer(params, defaults)
             Optimizer: Adam or SGD
-            params (iterable) – an iterable of torch tensors. Specifies what Tensors should be optimized.
-            lr (float, optional) – coefficient that scale delta before it is applied to the parameters (default: 1.0)
+            params (iterable) – an iterable of torch tensors. Specifies what Tensors should 
+                be optimized.
+            lr (float, optional) – coefficient that scale delta before it is applied to the
+                parameters (default: 1.0)
             '''
         optimizer = optim.SGD(model.parameters(), lr=0.01)
         optimizer.step()
@@ -236,10 +265,24 @@
         
         # Load a model 
             '''
-             Loading the state dict works only if the model architecture is exactly the same as the checkpoint architecture. 
+             Loading the state dict works only if the model architecture is exactly the same as
+                the checkpoint architecture. 
             '''
         
         state_dict = torch.load('checkpoint.pth')
         model.load_state_dict(state_dict)
-        
+  
+ ### GPU
+    # Move the model to GPU
+    model.to('cuda')
+    
+    # Move the model to CPU
+    model.to('cpu')
+    
+    # Move to GPU if it is available
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+    inputs, labels = inputs.to(device), labels.to(device)
+
+
         
