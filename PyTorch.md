@@ -74,3 +74,69 @@ just like Numpy arrays.
                 epoch (default: False)
             '''
         trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
+        
+        # Iterate inside a loader 
+            # 1
+        i = 0
+        for images, labels in loader:
+            i += len(labels)
+        i
+            # 2
+        dataiter = iter(loader)
+        images, labels = dataiter.next()
+        print(type(images))
+        print(images.shape)
+        print(labels.shape)
+        
+        # Showing an image 
+        plt.imshow(image_tensor.numpy().squeeze(), cmap='Greys_r')
+        
+        # Flatten the images of a loader 
+        images = images.view(images.shape[0],-1)
+   # Neural Networks
+        # Import the nn module 
+        from torch import nn
+        
+        # Building networks
+            # 1
+        class Network(nn.Module):
+            def __init__(self):
+                super().__init__()
+        
+                # Create a hidden layer of linear transformation
+                self.hidden = nn.Linear(input_int, hidden_int)
+                # Create an output layer of linear transformation
+                self.output = nn.Linear(hidden_int, output_int)
+        
+                # Define sigmoid activation and softmax output 
+                self.sigmoid = nn.Sigmoid()
+                self.softmax = nn.Softmax(dim=1)
+        
+            def forward(self, x):
+                # Pass the input tensor through each operation
+                x = self.hidden(x)
+                x = self.sigmoid(x)
+                x = self.output(x)
+                x = self.softmax(x)
+                return x
+        # Create the network 
+        model = Network()
+        
+        # Show the text representation of the model
+        model 
+        
+        # Show the the weight and bias tensors of the hidden layer
+        model.hidden.weight
+        model.hidden.bias
+        
+        # Calculate probabilities 
+            # 1 If there is no activation function at the end of the neural network: 
+        def softmax(x):
+            return torch.exp(x)/torch.sum(torch.exp(x), dim=1).view(-1, 1)
+        probabilities = softmax(out)
+        
+        
+        
+        
+            
+
