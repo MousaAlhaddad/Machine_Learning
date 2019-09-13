@@ -102,16 +102,18 @@ just like Numpy arrays.
         class Network(nn.Module):
             def __init__(self):
                 super().__init__()
-        
                 # Create a hidden layer of linear transformation
                 self.hidden = nn.Linear(input_int, hidden_int)
                 # Create an output layer of linear transformation
                 self.output = nn.Linear(hidden_int, output_int)
-        
+                    '''
+                    In practice, the ReLU function (nn.relu) is used almost exclusively as the activation
+                        function for hidden layers.
+                    '''
                 # Define sigmoid activation and softmax output 
                 self.sigmoid = nn.Sigmoid()
                 self.softmax = nn.Softmax(dim=1)
-        
+                
             def forward(self, x):
                 # Pass the input tensor through each operation
                 x = self.hidden(x)
@@ -119,6 +121,31 @@ just like Numpy arrays.
                 x = self.output(x)
                 x = self.softmax(x)
                 return x
+                
+        # Create the network 
+        model = Network()
+        
+            # 2 
+        import torch.nn.functional as F
+        class Network(nn.Module):
+            def __init__(self):
+                super().__init__()
+                # Create a hidden layer of linear transformation
+                self.hidden = nn.Linear(input_int, hidden_int)
+                # Create an output layer of linear transformation
+                self.output = nn.Linear(hidden_int, output_int)
+       
+            def forward(self, x):
+                    '''
+                    In practice, the ReLU function (F.relu) is used almost exclusively as the activation
+                        function for hidden layers.
+                    '''
+                # Create a sigmoid activation to the hidden layer
+                x = F.sigmoid(self.hidden(x))
+                # Create a softmax activation to the output layer
+                x = F.softmax(self.output(x), dim=1)
+                return x
+                
         # Create the network 
         model = Network()
         
