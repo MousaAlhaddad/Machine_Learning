@@ -125,6 +125,7 @@
         for param in model.parameters():
             param.requires_grad = False
         pretrained_model.classifier = model
+        
 
 ### Neural Networks
         # Import the nn module 
@@ -256,6 +257,7 @@
                 parameters (default: 1.0)
             '''
         optimizer = optim.SGD(model.parameters(), lr=0.01)
+        optimizer = optim.SGD(model.classifier.parameters(), lr=0.01)
         optimizer.step()
         # Clear the gradients
         optimizer.zero_grad()
