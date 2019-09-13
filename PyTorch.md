@@ -1,7 +1,9 @@
 # PyTorch
-Pytorch is a framework for building and training neural networks. The fundamental data structure for 
-neural networks are tensors and PyTorch is built around tensors. PyTorch tensors can be added, multiplied, subtracted, etc,
-just like Numpy arrays. 
+- Pytorch is a framework for building and training neural networks. 
+- Neural networks work like universal function approximators. 
+- The fundamental data structure for neural networks are tensors and PyTorch is built around tensors. PyTorch tensors can be added, multiplied, subtracted, etc, just like Numpy arrays. 
+- Training multilayer networks is done through backpropagation. The goal of backpropagation is to adjust the weights and biases to minimize the loss.
+- The learning rate  is set such that the weight update steps are small enough that the iterative method settles in a minimum.
 
 
 ## Coding 
@@ -149,6 +151,12 @@ just like Numpy arrays.
         # Create the network 
         model = Network()
         
+            # 3
+        model = nn.Sequential(nn.Linear(input_int, hidden_int),
+                nn.ReLU(),
+                nn.Linear(hidden_int, output_int),
+                nn.Softmax(dim=1))
+        
         # Show the text representation of the model
         model 
         
@@ -160,7 +168,51 @@ just like Numpy arrays.
             # 1 If there is no activation function at the end of the neural network: 
         def softmax(x):
             return torch.exp(x)/torch.sum(torch.exp(x), dim=1).view(-1, 1)
-        probabilities = softmax(out)
+        probabilities = softmax(model(image))
+        
+            # 2 If the nn.LogSoftmax is the output activation function: 
+        probabilities = torch.exp(model(image))
+
+        
+        # Calculate the loss
+            # 1 If there is no activation function at the end of the neural network: 
+            '''
+            This criterion combines nn.LogSoftmax() and nn.NLLLoss() in one single class.
+            '''
+        criterion = nn.CrossEntropyLoss()
+        loss =  criterion(model(images), labels)
+        
+            # 2 If the nn.LogSoftmax is the output activation function: 
+        criterion = nn.NLLLoss()
+        loss =  criterion(model(images), labels)
+        
+        # Turn off gradients for a block of code
+        with torch.no_grad():
+            pass
+            
+        # Go for a backward pass to calculate the gradients
+        loss.backward()
+        
+        # Optimize the model by updating the weights 
+        from torch import optim
+        optimizer = optim.SGD(model.parameters(), lr=0.01)
+        optimizer.step()
+        # Clear the gradients
+        optimizer.zero_grad()
+
+
+        
+
+        
+        
+        
+        
+
+        
+             
+
+        
+        
         
         
         
