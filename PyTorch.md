@@ -3,7 +3,11 @@
 - Neural networks work like universal function approximators. 
 - The fundamental data structure for neural networks are tensors and PyTorch is built around tensors. PyTorch tensors can be added, multiplied, subtracted, etc, just like Numpy arrays. 
 - Training multilayer networks is done through backpropagation. The goal of backpropagation is to adjust the weights and biases to minimize the loss.
-- The learning rate  is set such that the weight update steps are small enough that the iterative method settles in a minimum.
+- The learning rate is set such that the weight update steps are small enough that the iterative method settles in a minimum.
+- One pass through the entire dataset is called an epoch.
+- To train your neural network on PyTroch, you need to define a model, a loss criterion, and an optimizer.
+- Neural networks have a tendency to perform too well on the training data and aren't able to generalize to data that hasn't been seen before. The aim is to get the lowest validation loss possible, not the lowest training loss. In practice, you might need to save the model frequently as you are training then later choose the model with the lowest validation loss. 
+- The most common method to reduce overfitting (outside of early-stopping) is dropout. Make sure to turn off dropout during validation, testing, and whenever we're using the network to make predictions.
 
 
 ## Coding 
@@ -136,6 +140,8 @@
                 self.hidden = nn.Linear(input_int, hidden_int)
                 # Create an output layer of linear transformation
                 self.output = nn.Linear(hidden_int, output_int)
+                # Create a dropout module with 0.2 drop probability
+                self.dropout = nn.Dropout(p=0.2)
        
             def forward(self, x):
                     '''
@@ -143,8 +149,11 @@
                         function for hidden layers.
                     '''
                 # Create a sigmoid activation to the hidden layer
-                x = F.sigmoid(self.hidden(x))
+                x = self.dropout(F.sigmoid(self.hidden(x)))
                 # Create a softmax activation to the output layer
+                    '''
+                    Use F.log_softmax if you are going to use nn.NLLLoss() a the criterion.
+                    '''
                 x = F.softmax(self.output(x), dim=1)
                 return x
                 
@@ -172,7 +181,13 @@
         
             # 2 If the nn.LogSoftmax is the output activation function: 
         probabilities = torch.exp(model(image))
-
+        
+        # Get the most likely class
+        top_p, top_class = probabilities.topk(1, dim=1)
+        
+        # Caculate the accuracy
+        equals = top_class == labels.view(*top_class.shape)
+        accuracy = equals.numpy().mean()
         
         # Calculate the loss
             # 1 If there is no activation function at the end of the neural network: 
@@ -186,36 +201,45 @@
         criterion = nn.NLLLoss()
         loss =  criterion(model(images), labels)
         
-        # Turn off gradients for a block of code
+        # Turn off gradients for a block of code to speed it up
         with torch.no_grad():
             pass
-            
+        
+        # Turn off dropout
+        '''
+        Turn off dropout during validation, testing, and predicting
+        + Do not forget to turn off gradients
+        '''
+        model.eval()
+        
+        # Turn on dropout
+        model.train()
+        
         # Go for a backward pass to calculate the gradients
         loss.backward()
         
         # Optimize the model by updating the weights 
         from torch import optim
+            '''
+            torch.optim.Optimizer(params, defaults)
+            Optimizer: Adam or SGD
+            params (iterable) – an iterable of torch tensors. Specifies what Tensors should be optimized.
+            lr (float, optional) – coefficient that scale delta before it is applied to the parameters (default: 1.0)
+            '''
         optimizer = optim.SGD(model.parameters(), lr=0.01)
         optimizer.step()
         # Clear the gradients
         optimizer.zero_grad()
-
-
         
-
+        # Save a model
+        torch.save(model.state_dict(), 'checkpoint.pth')
         
+        # Load a model 
+            '''
+             Loading the state dict works only if the model architecture is exactly the same as the checkpoint architecture. 
+            '''
         
-        
-        
-
-        
-             
-
-        
+        state_dict = torch.load('checkpoint.pth')
+        model.load_state_dict(state_dict)
         
         
-        
-        
-        
-            
-
