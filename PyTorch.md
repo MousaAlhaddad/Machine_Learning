@@ -43,3 +43,29 @@ just like Numpy arrays.
       '''
     torch.Tensor.numpy(tensor)
   
+### Torchvision
+        # Import datasets and transfoms 
+        from torchvision import datasets, transforms
+        
+        # Define a transform to normalize the data
+        transform = transforms.Compose([transforms.ToTensor(),
+                              transforms.Normalize((0.5,), (0.5,)),
+                              ])
+                              
+        # Download and load the training MNIST data data
+         '''
+            root (string) - Root directory of dataset where MNIST/processed/training.pt and MNIST/processed/test.pt exist.
+            train (bool, optional) - If True, creates dataset from training.pt, otherwise from test.pt.
+            download (bool, optional) – If true, downloads the dataset from the internet and puts it in root directory. If dataset is                   already downloaded, it is not downloaded again.
+            transform (callable, optional) – A function/transform that takes in an PIL image and returns a transformed version.
+            '''
+        trainset = datasets.MNIST('~/.pytorch/MNIST_data/', download=True, train=True, transform=transform)
+           
+            
+        # Combine a dataset and a sampler, and provide an iterable over the given dataset
+            '''
+            dataset (Dataset): dataset from which to load the data
+            batch_size (int, optional): how many samples per batch to load (default: 1)
+            shuffle (bool, optional): set to True to have the data reshuffled at every epoch (default: False)
+            '''
+        trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
