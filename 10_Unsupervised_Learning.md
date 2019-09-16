@@ -30,7 +30,8 @@ The second most common way is the Max-Min Scaling [0-1].
       labels = algorithm.fit_predict(data)
       
 - The parameter linkage is optional {“ward” (default), “complete”, “average”, “single”}. The linkage criterion determines which distance to use between sets of observation. The algorithm will merge the pairs of cluster that minimize this criterion. **ward** minimizes the variance of the clusters being merged. **average** uses the average of the distances of each observation of the two sets. **complete** or maximum linkage uses the maximum distances between all observations of the two sets. **single** uses the minimum of the distances between all observations of the two sets. 
-- Clustering after normalization using the **ward** linkage criterion might increase the accuracy.  
+- Clustering after normalization using the **ward** linkage criterion might increase the accuracy. 
+- The **single** linkage is more prone to result in elongated shapes.
 
       # Plot the hierarchical clustering as a dendrogram.
       from scipy.cluster.hierarchy import linkage, dendrogram
@@ -42,7 +43,13 @@ The second most common way is the Max-Min Scaling [0-1].
       # Plot a matrix dataset as a hierarchically-clustered heatmap
       sns.clustermap(normalized_X, method=linkage_type)
 
-### 
+- A clustermap is a detailed dendrogram which also visualizes the dataset in more detail.
+- Hierarchical Clustering is sensitive to **outliers** and **computationally expensive**.
+
+### DBSCAN 
+
+
+###  Clustering Metrics 
       from sklearn.metrics import adjusted_rand_score
       adjusted_rand_score(labels_true, labels_pred)
 
