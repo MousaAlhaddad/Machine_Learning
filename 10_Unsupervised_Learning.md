@@ -47,6 +47,16 @@ The second most common way is the Max-Min Scaling [0-1].
 - Hierarchical Clustering is sensitive to **outliers** and **computationally expensive**.
 
 ### DBSCAN 
+      from sklearn.cluster import DBSCAN
+      model = DBSCAN(eps=0.5, min_samples=5)
+      labels = model.fit_predict(data)
+      
+- Density-Based Spatial Clustering of Applications with Noise finds core samples of high density and expands clusters from them. 
+- **eps** (float, optional) is the maximum distance between two samples for one to be considered as in the neighborhood of the other. 
+- **min_samples** (int, optional) is the number of samples in a neighborhood for a point to be considered as a core point. This includes the point itself. 
+- DBSCAN does not need specifying the number of clusters.
+
+
 
 
 ###  Clustering Metrics 
