@@ -56,8 +56,11 @@ The second most common way is the Max-Min Scaling [0-1].
 - **min_samples** (int, optional) is the number of samples in a neighborhood for a point to be considered as a core point. This includes the point itself. 
 - DBSCAN does not need specifying the number of clusters.
 
-
-
+### GaussianMixture
+      from sklearn.mixture import GaussianMixture
+      model = GaussianMixture(n_components=K)
+      model.fit(data)
+      model.predict(data)
 
 ###  Clustering Metrics 
       from sklearn.metrics import adjusted_rand_score
@@ -65,6 +68,29 @@ The second most common way is the Max-Min Scaling [0-1].
 
 - The Rand Index computes a similarity measure between two clusterings between -1.0 and 1.0. Random labelings have an ARI close to 0.0. 1.0 stands for a perfect match.
 
+      from sklearn.metrics import silhouette_score
+      silhouette_score(data,labels)
+      
+- The best value is 1 and the worst value is -1. Values near 0 indicate overlapping clusters. Negative values generally indicate that a sample has been assigned to the wrong cluster, as a different cluster is more similar.
+
+## Dimensionality Reduction
+### PCA 
+      from sklearn.decomposition import PCA
+      pca = PCA(n_components)
+      X_pca = pca.fit_transform(X)
+      
+      pca.explained_variance_ratio_
+      
+- Make sure tor scale the data before using PCA.
+- The aim of PCA is to maximize variance.
+
+### Random Projection
+      from sklearn.random_projection import SparseRandomProjection
+      rp = SparseRandomProjection(n_components='auto',eps=0.1)
+      new_x = rp.fit_transform(x)
+
+- n_components (int or ‘auto’, optional (default = ‘auto’)) can be automatically adjusted according to the number of samples in the dataset.
+- eps (strictly positive float, optional, (default=0.1)) with smaller values lead to better embedding and higher number of dimensions (n_components) in the target projection space.
 
 
 
