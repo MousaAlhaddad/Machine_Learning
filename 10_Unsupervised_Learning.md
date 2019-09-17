@@ -88,9 +88,17 @@ The second most common way is the Max-Min Scaling [0-1].
       from sklearn.random_projection import SparseRandomProjection
       rp = SparseRandomProjection(n_components='auto',eps=0.1)
       new_x = rp.fit_transform(x)
-
+      
 - n_components (int or ‘auto’, optional (default = ‘auto’)) can be automatically adjusted according to the number of samples in the dataset.
 - eps (strictly positive float, optional, (default=0.1)) with smaller values lead to better embedding and higher number of dimensions (n_components) in the target projection space.
+
+### ICA 
+      X = list(zip(data))
+      from sklearn.decomposition import FastICA
+      ica = FastICA(n_components)
+      X_ica = pca.fit_transform(X)
+
+
 
 
 
